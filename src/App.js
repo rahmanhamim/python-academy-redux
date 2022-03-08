@@ -13,29 +13,33 @@ import BlogDetailsMain from "./components/Blogs/BlogDetailsMain/BlogDetailsMain"
 import NewCart from "./components/NewCart/NewCart";
 import NewCartProvider from "./contexts/NewCartProvider/NewCartProvider";
 import Checkout from "./components/Checkout/Checkout";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
  return (
   <>
-   <AuthProvider>
-    <NewCartProvider>
-     <CartProvider>
-      <ScrollToTop>
-       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="course/:id" element={<CourseDetailsMain />} />
-        <Route path="blogs/:id" element={<BlogDetailsMain />} />
-        {/* <Route path="cart" element={<Cart />} />  there is some bug in this route */}
-        <Route path="newcart" element={<NewCart />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="quiz" element={<QuizHome />} />
-        <Route path="blogs" element={<BlogsHome />} />
-        <Route path="allcourses" element={<AllCourses />} />
-       </Routes>
-      </ScrollToTop>
-     </CartProvider>
-    </NewCartProvider>
-   </AuthProvider>
+   <Provider store={store}>
+    <AuthProvider>
+     <NewCartProvider>
+      <CartProvider>
+       <ScrollToTop>
+        <Routes>
+         <Route path="/" element={<Home />} />
+         <Route path="course/:id" element={<CourseDetailsMain />} />
+         <Route path="blogs/:id" element={<BlogDetailsMain />} />
+         {/* <Route path="cart" element={<Cart />} />  there is some bug in this route */}
+         <Route path="newcart" element={<NewCart />} />
+         <Route path="checkout" element={<Checkout />} />
+         <Route path="quiz" element={<QuizHome />} />
+         <Route path="blogs" element={<BlogsHome />} />
+         <Route path="allcourses" element={<AllCourses />} />
+        </Routes>
+       </ScrollToTop>
+      </CartProvider>
+     </NewCartProvider>
+    </AuthProvider>
+   </Provider>
   </>
  );
 }

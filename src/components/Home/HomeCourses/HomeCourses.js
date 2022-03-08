@@ -5,14 +5,22 @@ import bg3 from "../../../img/homecoursebg3.png";
 import bg2 from "../../../img/homecoursebg2.png";
 import CourseCards from "../../Shared/CourseCards/CourseCards";
 import iconImage from "../../../img/homecourseicon.png";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "../../../redux/courses/coursesActions";
 
 const HomeCourses = () => {
- const [courses, setCourses] = useState([]);
+ //  const [courses, setCourses] = useState([]);
+ //  useEffect(() => {
+ //   fetch("./courses.json")
+ //    .then((res) => res.json())
+ //    .then((data) => setCourses(data));
+ //  }, []);
+
+ const courses = useSelector((state) => state.coursesData.courses);
+ const dispatch = useDispatch();
  useEffect(() => {
-  fetch("./courses.json")
-   .then((res) => res.json())
-   .then((data) => setCourses(data));
- }, []);
+  dispatch(fetchCourses());
+ }, [dispatch]);
 
  return (
   <Container sx={{ mt: "10em" }}>

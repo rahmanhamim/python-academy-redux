@@ -9,19 +9,38 @@ import CourseDetailsLearn from "../CourseDetailsLearn/CourseDetailsLearn";
 import Footer from "../../Shared/Footer/Footer";
 import CourseDetailsCertification from "../CourseDetailsCertification/CourseDetailsCertification";
 import RelatedCourse from "../RelatedCourse/RelatedCourse";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "../../../redux/courses/coursesActions";
 
 const CourseDetailsMain = () => {
+ // data loading
  const { id } = useParams();
  const [courseData, setCourseData] = useState({});
 
+ //  useEffect(() => {
+ //   fetch("/courses.json")
+ //    .then((res) => res.json())
+ //    .then((courses) => {
+ //     const course = courses.find((course) => course.id === id);
+ //     setCourseData(course);
+ //    });
+ //  }, [id]);
+
+ const { courses } = useSelector((state) => state.coursesData);
+
+ const dispatch = useDispatch();
  useEffect(() => {
-  fetch("/courses.json")
-   .then((res) => res.json())
-   .then((courses) => {
-    const course = courses.find((course) => course.id === id);
-    setCourseData(course);
-   });
- }, [id]);
+  dispatch(fetchCourses());
+ }, [dispatch]);
+
+ useEffect(() => {
+  const selectedCourse = courses.find((course) => course.id === id);
+
+  setCourseData(selectedCourse);
+ }, [courses, id]);
+
+ //  data loading end
+
  // ----------------------------------
  const [open, setOpen] = React.useState(false);
  const handleOpen = () => setOpen(true);

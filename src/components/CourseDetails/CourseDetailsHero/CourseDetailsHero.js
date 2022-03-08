@@ -59,7 +59,7 @@ const CourseDetailsHero = ({ courseData }) => {
      lineHeight: "1.3",
     }}
    >
-    {courseData.title}
+    {courseData?.title}
    </Typography>
    <Grid container spacing={0} sx={{ pt: 5 }}>
     <Grid item xs={12} md={5}>
@@ -154,7 +154,7 @@ const CourseDetailsHero = ({ courseData }) => {
           component="div"
          >
           {" "}
-          £ {courseData.price}
+          £ {courseData?.price}
          </Typography>
         </Grid>
         <Grid

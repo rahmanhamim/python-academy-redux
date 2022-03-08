@@ -6,6 +6,8 @@ import Footer from "../Shared/Footer/Footer";
 import { useForm } from "react-hook-form";
 import CourseCards from "../Shared/CourseCards/CourseCards";
 import LoginFrom from "../Home/LoginForm/LoginFrom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "../../redux/courses/coursesActions";
 
 const AllCourses = () => {
  // ----------------------------------
@@ -64,13 +66,23 @@ const AllCourses = () => {
   reset();
  };
 
- const [courses, setCourses] = useState([]);
+ // Loading Courses Data  --------------------
+ //  const [courses, setCourses] = useState([]);
+
+ //  useEffect(() => {
+ //   fetch("/courses.json")
+ //    .then((res) => res.json())
+ //    .then((data) => setCourses(data));
+ //  }, []);
+
+ const courses = useSelector((state) => state.coursesData.courses);
+ const dispatch = useDispatch();
 
  useEffect(() => {
-  fetch("/courses.json")
-   .then((res) => res.json())
-   .then((data) => setCourses(data));
- }, []);
+  dispatch(fetchCourses());
+ }, [dispatch]);
+
+ // Loading Courses Data End  --------------------
 
  return (
   <>
