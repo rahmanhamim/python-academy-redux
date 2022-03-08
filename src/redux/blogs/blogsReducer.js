@@ -6,7 +6,7 @@ import {
 
 const initialState = {
  loading: false,
- courses: [],
+ blogs: [],
  error: "",
 };
 
@@ -21,14 +21,14 @@ const blogsReducer = (state = initialState, action) => {
   case FETCH_BLOGS_SUCCESS:
    return {
     loading: false,
-    courses: action.payload,
+    blogs: action.payload,
     error: "",
    };
 
   case FETCH_BLOGS_FAILURE:
    return {
     loading: false,
-    courses: [],
+    blogs: [],
     error: action.payload,
    };
 

@@ -5,39 +5,39 @@ import {
  FETCH_BLOGS_SUCCESS,
 } from "./blogsTypes";
 
-export const fetchCoursesRequest = () => {
+export const fetchBlogsRequest = () => {
  return {
   type: FETCH_BLOGS_REQUEST,
  };
 };
-export const fetchCoursesSuccess = (courses) => {
+export const fetchBlogsSuccess = (courses) => {
  return {
   type: FETCH_BLOGS_SUCCESS,
   payload: courses,
  };
 };
 
-export const fetchCoursesFailure = (error) => {
+export const fetchBlogsFailure = (error) => {
  return {
   type: FETCH_BLOGS_FAILURE,
   payload: error,
  };
 };
 
-export const fetchCourses = () => {
+export const fetchBlogs = () => {
  return (dispatch) => {
-  dispatch(fetchCoursesRequest);
+  dispatch(fetchBlogsRequest);
   axios
    .get(
-    "https://raw.githubusercontent.com/rahmanhamim/python-academy-data/main/courses.json"
+    "https://raw.githubusercontent.com/rahmanhamim/python-academy-data/main/blogs.json"
    )
    .then((res) => {
     const courses = res.data;
-    dispatch(fetchCoursesSuccess(courses));
+    dispatch(fetchBlogsSuccess(courses));
    })
    .catch((err) => {
     const errorMsg = err.message;
-    dispatch(fetchCoursesFailure(errorMsg));
+    dispatch(fetchBlogsFailure(errorMsg));
    });
  };
 };

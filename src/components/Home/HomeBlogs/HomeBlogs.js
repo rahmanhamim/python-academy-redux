@@ -9,14 +9,23 @@ import {
  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBlogs } from "../../../redux/blogs/blogsAction";
 
 const HomeBlogs = () => {
- const [blogsData, setBlogsData] = useState([]);
+ //  const [blogsData, setBlogsData] = useState([]);
+ //  useEffect(() => {
+ //   fetch("./homeBlogs.json")
+ //    .then((res) => res.json())
+ //    .then((data) => setBlogsData(data));
+ //  }, []);
+
+ const blogsData = useSelector((state) => state.blogsData.blogs);
+ console.log(blogsData);
+ const dispatch = useDispatch();
  useEffect(() => {
-  fetch("./homeBlogs.json")
-   .then((res) => res.json())
-   .then((data) => setBlogsData(data));
- }, []);
+  dispatch(fetchBlogs());
+ }, [dispatch]);
 
  return (
   <Container sx={{ mt: 10, mb: 5, marginBottom: "6em" }}>
@@ -32,7 +41,7 @@ const HomeBlogs = () => {
    </Typography>
 
    <Grid container spacing={2} sx={{ my: 4 }}>
-    {blogsData.map((data) => (
+    {blogsData.slice(0, 3).map((data) => (
      <Grid key={data.id} item xs={12} md={4}>
       <Card
        sx={{
