@@ -17,17 +17,33 @@ import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import DevicesOutlinedIcon from "@mui/icons-material/DevicesOutlined";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import checkIcon from "../../../img/check-logo.png";
-import { CartContext } from "../../../contexts/CartProvider/CartProvider";
 import { Link } from "react-router-dom";
 import { NewCartContext } from "../../../contexts/NewCartProvider/NewCartProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../redux/cart/cartActions";
 
 const CourseDetailsHero = ({ courseData }) => {
  const [open, setOpen] = React.useState(false);
  const handleOpen = () => setOpen(true);
  const handleClose = () => setOpen(false);
 
- const [newCartItems, setNewCartItems, addToCartBtn] =
-  useContext(NewCartContext);
+ const cart = useSelector((state) => state.cartData.cart);
+ const dispatch = useDispatch();
+
+ const addToCartBtn = (course) => {
+  const exist = cart.find((x) => x.id === course.id);
+  if (exist) {
+   const newCart = cart.map((x) =>
+    x.id === course.id ? { ...exist, qty: exist.qty + 1 } : x
+   );
+
+   dispatch(addToCart(newCart));
+  } else {
+   const newCart = [...cart, { ...course, qty: 1 }];
+
+   dispatch(addToCart(newCart));
+  }
+ };
 
  return (
   <Container sx={{ color: "#fff", mt: 8, mb: 5 }}>

@@ -10,9 +10,42 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
 
-const ShoppingCartItems = (props) => {
- const { newCartItems, addToCartBtn, onRemoveBtn } = props;
+const ShoppingCartItems = () => {
+ const cart = useSelector((state) => state.cartData.cart);
+ const dispatch = useDispatch();
+
+ const addToCartBtn = (course) => {
+  const exist = cart.find((x) => x.id === course.id);
+  if (exist) {
+   const newCart = cart.map((x) =>
+    x.id === course.id ? { ...exist, qty: exist.qty + 1 } : x
+   );
+
+   dispatch(addToCart(newCart));
+  } else {
+   const newCart = [...cart, { ...course, qty: 1 }];
+
+   dispatch(addToCart(newCart));
+  }
+ };
+
+ const onRemoveBtn = (product) => {
+  const exist = cart.find((x) => x.id === product.id);
+  if (exist.qty === 1) {
+   const newCart = cart.filter((x) => x.id !== product.id);
+   dispatch(removeFromCart(newCart));
+  } else {
+   const newCart = cart.map((x) =>
+    x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+   );
+   dispatch(removeFromCart(newCart));
+  }
+ };
+
+ // ----------------------------------------------
 
  const useStyle = makeStyles({
   cartTitleStyle: {
@@ -62,7 +95,7 @@ const ShoppingCartItems = (props) => {
      </TableHead>
      <TableBody>
       {/* ------------------------------- */}
-      {newCartItems?.map((item, index) => (
+      {cart?.map((item, index) => (
        <TableRow
         key={index}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

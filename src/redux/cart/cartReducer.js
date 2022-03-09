@@ -12,6 +12,11 @@ export const cartReducer = (state = initialState, action) => {
    ...state,
    cart: action.payload,
   };
+ } else if (action.type === "REMOVE_FROM_CART") {
+  return {
+   ...state,
+   cart: action.payload,
+  };
  } else if (action.type === "ADD_SUBTOTAL") {
   return {
    ...state,
@@ -43,18 +48,6 @@ export const cartReducer = (state = initialState, action) => {
    cart: state.cart.map((item) => {
     if (item.id === action.payload) {
      item.quantity += 1;
-    }
-    return item;
-   }),
-  };
- } else if (action.type === "DECREASE_QUANTITY") {
-  return {
-   ...state,
-   cart: state.cart.map((item) => {
-    if (item.id === action.payload) {
-     if (item.quantity > 0) {
-      item.quantity = item.quantity - 1;
-     }
     }
     return item;
    }),

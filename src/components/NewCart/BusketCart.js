@@ -1,9 +1,10 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const BusketCart = ({ itemsPrice, vatPrice, totalPrice, setTotalPrice }) => {
+const BusketCart = () => {
  const [couponText, setCouponText] = useState("");
 
  const handleCouponBtn = () => {
@@ -13,6 +14,21 @@ const BusketCart = ({ itemsPrice, vatPrice, totalPrice, setTotalPrice }) => {
    alert("coupon not valid");
   }
  };
+
+ const cart = useSelector((state) => state.cartData.cart);
+ console.log(cart);
+
+ let itemsPrice = cart.reduce((a, c) => a + c.price * c.qty, 0);
+ let vatPrice = itemsPrice * 0.15;
+ let varTotal = itemsPrice + vatPrice;
+
+ let [totalPrice, setTotalPrice] = useState(varTotal);
+ useEffect(() => {
+  setTotalPrice(varTotal);
+ }, [varTotal]);
+
+ //  -------------------------------------------
+ // ---------------------------------------------
 
  const useStyle = makeStyles({
   busketContainerStyle: {

@@ -25,17 +25,8 @@ const NewCart = () => {
  );
  // ----------------------------------
 
- const [
-  newCartItems,
-  setNewCartItems,
-  addToCartBtn,
-  onRemoveBtn,
-  itemsPrice,
-  vatPrice,
-  varTotal,
-  totalPrice,
-  setTotalPrice,
- ] = useContext(NewCartContext);
+ const [itemsPrice, vatPrice, varTotal, totalPrice, setTotalPrice] =
+  useContext(NewCartContext);
 
  return (
   <>
@@ -56,11 +47,7 @@ const NewCart = () => {
    >
     <Container>
      <Grid container spacing={0} sx={{ mt: 5, justifyContent: "space-around" }}>
-      <ShoppingCartItems
-       newCartItems={newCartItems}
-       addToCartBtn={addToCartBtn}
-       onRemoveBtn={onRemoveBtn}
-      ></ShoppingCartItems>
+      <ShoppingCartItems></ShoppingCartItems>
       {/* Busket side */}
       <BusketCart
        itemsPrice={itemsPrice}
