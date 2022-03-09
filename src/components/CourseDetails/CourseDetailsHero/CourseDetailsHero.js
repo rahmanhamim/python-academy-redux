@@ -26,25 +26,6 @@ const CourseDetailsHero = ({ courseData }) => {
  const handleOpen = () => setOpen(true);
  const handleClose = () => setOpen(false);
 
- // const [cartItems, setCartItems] = useContext(CartContext);
-
- // const handleAddToCart = (courseItem) => {
- //  const added = cartItems.find((item) => item.id === courseItem.id);
- //  if (added) {
- //   added.quantity = added.quantity + 1;
- //   added.totalPrice = added.quantity * added.price;
- //  } else {
- //   courseItem = {
- //    ...courseItem,
- //    quantity: 1,
- //    totalPrice: courseItem.price,
- //   };
- //   const newCart = [...cartItems, courseItem];
- //   setCartItems(newCart);
- //  }
- // };
- // console.log(cartItems);
-
  const [newCartItems, setNewCartItems, addToCartBtn] =
   useContext(NewCartContext);
 
