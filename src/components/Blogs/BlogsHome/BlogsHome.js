@@ -6,6 +6,8 @@ import Footer from "../../Shared/Footer/Footer";
 import BlogPosts from "../BlogPosts/BlogPosts";
 import PaginationBlogs from "../PaginationBlogs/PaginationBlogs";
 import LoginFrom from "../../Home/LoginForm/LoginFrom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBlogs } from "../../../redux/blogs/blogsAction";
 
 const BlogsHome = () => {
  // ----------------------------------
@@ -16,20 +18,18 @@ const BlogsHome = () => {
 
  // -------------------------------------
 
- const [posts, setPosts] = useState([]);
- const [loading, setLoading] = useState(false);
  const [currentPage, setCurrentPage] = useState(1);
  const [postsPerPage] = useState(6);
 
+ const posts = useSelector((state) => state.blogsData.blogs);
+ const loading = useSelector((state) => state.blogsData.loading);
+
+ const dispatch = useDispatch();
  useEffect(() => {
-  setLoading(true);
-  fetch("/blogs.json")
-   .then((res) => res.json())
-   .then((data) => {
-    setPosts(data);
-    setLoading(false);
-   });
- }, []);
+  dispatch(fetchBlogs());
+ }, [dispatch]);
+
+ //  loading data end
 
  const indexOfLastPost = currentPage * postsPerPage;
  const indexOfFirstPost = indexOfLastPost - postsPerPage;
